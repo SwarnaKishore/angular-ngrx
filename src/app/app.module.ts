@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
-import { counterReducer } from './counter.reducer';
+import { counterReducer } from './my-counter/counter.reducer';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
