@@ -11,25 +11,9 @@ import { selectBooks, selectBookCollection } from './store/books/books.selectors
 })
 export class AppComponent {
   title = 'angular-ngrx';
-  books$ = this.store.pipe(select(selectBooks));
-  bookCollection$ = this.store.pipe(select(selectBookCollection));
-
-  onAdd(bookId) {
-    this.store.dispatch(addBook({ bookId }));
-  }
-
-  onRemove(bookId) {
-    this.store.dispatch(removeBook({ bookId }));
-  }
 
   constructor(
-    private booksService: GoogleBooksService,
-    private store: Store<AppState>
   ) {}
 
-  ngOnInit() {
-    this.booksService
-      .getBooks()
-      .subscribe((Book) => this.store.dispatch(retrievedBookList({ Book })));
-  }
+  ngOnInit() {}
 }

@@ -12,11 +12,12 @@ import { BookListComponent } from './book-list/book-list.component';
 // import { collectionReducer } from './store/collection.reducer';
 import { appReducer } from './store/app.reducer';
 import { HttpClientModule } from '@angular/common/http';
+import { BooksComponent } from './books/books.component';
 // import { reducers, metaReducers } from './reducers';
 
 @NgModule({
   declarations: [
-    AppComponent, MyCounterComponent, BookListComponent, BookCollectionComponent
+    AppComponent, MyCounterComponent, BookListComponent, BookCollectionComponent, BooksComponent
   ],
   imports: [
     BrowserModule,
