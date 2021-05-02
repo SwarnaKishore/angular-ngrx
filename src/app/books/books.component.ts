@@ -24,13 +24,14 @@ export class BooksComponent implements OnInit {
   }
 
   constructor(
-    private booksService: GoogleBooksService,
+    // private booksService: GoogleBooksService,
     private store: Store<AppState>
   ) {}
 
   ngOnInit() {
-    this.booksService
-      .getBooks()
-      .subscribe((Book) => this.store.dispatch(retrievedBookList({ Book })));
+    this.store.dispatch({ type: '[Books Page] Load Books' });
+    // this.booksService
+    //   .getBooks()
+    //   .subscribe((Book) => this.store.dispatch(retrievedBookList({ Book })));
   }
 }
