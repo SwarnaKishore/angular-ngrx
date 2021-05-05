@@ -13,6 +13,8 @@ import { BookListComponent } from './book-list/book-list.component';
 import { appReducer } from './store/app.reducer';
 import { HttpClientModule } from '@angular/common/http';
 import { BooksComponent } from './books/books.component';
+import { EffectsModule } from '@ngrx/effects';
+import { BooksEffects } from './store/books/books.effects';
 // import { reducers, metaReducers } from './reducers';
 
 @NgModule({
@@ -23,7 +25,9 @@ import { BooksComponent } from './books/books.component';
     BrowserModule,
     StoreModule.forRoot(appReducer),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    EffectsModule.forRoot([BooksEffects])
+
     // StoreModule.forRoot(reducers, {
     //   metaReducers
     // })
