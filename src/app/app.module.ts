@@ -15,6 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { BooksComponent } from './books/books.component';
 import { EffectsModule } from '@ngrx/effects';
 import { BooksEffects } from './store/books/books.effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
 // import { reducers, metaReducers } from './reducers';
 
 @NgModule({
@@ -26,8 +28,11 @@ import { BooksEffects } from './store/books/books.effects';
     StoreModule.forRoot(appReducer),
     AppRoutingModule,
     HttpClientModule,
-    EffectsModule.forRoot([BooksEffects])
-
+    EffectsModule.forRoot([BooksEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
     // StoreModule.forRoot(reducers, {
     //   metaReducers
     // })
