@@ -15,7 +15,7 @@ jobs:
         # Get the differences between base and head branches
         git fetch origin ${{ github.event.pull_request.base.ref }}
         git fetch origin ${{ github.event.pull_request.head.ref }}
-        DIFF=$(${{ github.event.pull_request.base.ref }}..${{ github.event.pull_request.head.ref }})
+        DIFF=$(git diff ${{ github.event.pull_request.base.ref }}..${{ github.event.pull_request.head.ref }})
         
         # Check if 'automationId' is removed
         if echo "$DIFF" | grep -q "automationId"; then
