@@ -10,9 +10,11 @@ jobs:
     runs-on: ubuntu-latest 
     steps: 
     - uses: actions/checkout@v2 
+      with:
+          ref: ${{ github.event.pull_request.head.ref }}
     - name: Check diff 
       run: | 
-        if git diff --quiet "${{ github.base_ref }}...${{ github.head_ref }}" && ! git diff --name-only "${{ github.base_ref }}...${{ github.head_ref }}" | grep "automationId"; then 
+        if git diff --quiet "${{ github.event.pull_request.base.ref }}...${{ github.event.pull_request.head.ref }}" && ! git diff --name-only "${{ github.event.pull_request.base.ref }}...${{ github.event.pull_request.head.ref }}" | grep "automationId"; then 
           echo "No differences found between base and head branches, and no files with 'automationId' found." 
           exit 0 
         else 
