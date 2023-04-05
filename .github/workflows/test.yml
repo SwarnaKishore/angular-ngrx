@@ -10,8 +10,6 @@ jobs:
     runs-on: ubuntu-latest 
     steps: 
     - uses: actions/checkout@v2 
-      with:
-          ref: ${{ github.event.pull_request.head.ref }}
     - name: Check diff
       run: |
         # Get the differences between base and head branches
