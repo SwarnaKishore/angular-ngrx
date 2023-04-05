@@ -13,18 +13,14 @@ jobs:
     - name: Check diff
       run: |
         # Get the differences between base and head branches
-        DIFF=$(git diff origin/master HEAD)
+        DIFF=$(git diff "${{ github.base_ref }}...${{ github.head_ref }}")
         
         # Check if 'automationId' is removed
         if echo "$DIFF" | grep -q "automationId"; then
           echo "No differences found between base and head branches, or 'automationId' text is removed."
-          echo "$DIFF"
-          echo "$DIFF" | grep -q "automationId"
           exit 1
         else
           echo "Differences found between base and head branches, and 'automationId' text is not removed."
-          echo "$DIFF"
-          echo "$DIFF" | grep -q "automationId"
           exit 0
         fi
 
