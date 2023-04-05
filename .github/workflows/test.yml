@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   pull_request: 
     branches: 
-      - main 
+      - master 
 jobs: 
   check-diff: 
     name: Check diff between base and head branches 
