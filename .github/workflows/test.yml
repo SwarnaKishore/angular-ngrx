@@ -9,7 +9,7 @@ jobs:
     name: Check diff between base and head branches 
     runs-on: ubuntu-latest 
     steps: 
-    - uses: actions/checkout@v1 
+    - uses: actions/checkout@v2
     - name: Check diff
       run: |
         # Get the differences between base and head branches
