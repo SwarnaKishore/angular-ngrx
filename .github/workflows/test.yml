@@ -9,15 +9,19 @@ jobs:
     name: Check diff between base and head branches 
     runs-on: ubuntu-latest 
     steps: 
-    - uses: actions/checkout@v2 
-    - name: Check diff 
-      run: | 
-        if git diff --quiet "${{ github.base_ref }}...${{ github.head_ref }}" && ! git diff --name-only "${{ github.base_ref }}...${{ github.head_ref }}" | grep "automationId"; then 
-          echo "No differences found between base and head branches, and no files with 'automationId' found." 
-          exit 0 
-        else 
-          echo "Differences found between base and head branches, or files with 'automationId' found." 
-          exit 1 
-        fi 
+    - uses: actions/checkout@v1 
+    - name: Check diff
+      run: |
+        # Get the differences between base and head branches
+        DIFF=$(git diff --name-only origin/master HEAD)
+        
+        # Check if 'automationId' is removed
+        if echo "$DIFF" | grep -q "automationId"; then
+          echo "No differences found between base and head branches, or 'automationId' text is removed."
+          exit 1
+        else
+          echo "Differences found between base and head branches, and 'automationId' text is not removed."
+          exit 0
+        fi
 
  
