@@ -9,11 +9,11 @@ jobs:
     name: Check diff between base and head branches 
     runs-on: ubuntu-latest 
     steps: 
-    - uses: actions/checkout@v2 
+    - uses: actions/checkout@v1 
     - name: Check diff
       run: |
         # Get the differences between base and head branches
-        DIFF=$(git diff --name-only "${{ github.base_ref }}...${{ github.head_ref }}")
+        DIFF=$(git diff --name-only origin/master HEAD)
         
         # Check if 'automationId' is removed
         if echo "$DIFF" | grep -q "automationId"; then
