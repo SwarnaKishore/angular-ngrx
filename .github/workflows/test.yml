@@ -14,7 +14,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
     - name: Check diff 
       run: | 
-        if git diff --quiet "${{ github.event.pull_request.base.ref }}...${{ github.event.pull_request.head.ref }}" && | grep "automationId"; then 
+        if git diff --quiet "${{ github.event.pull_request.base.ref }}...${{ github.event.pull_request.head.ref }}" | grep "automationId"; then 
           echo "No differences found between base and head branches, and no files with 'automationId' found." 
           exit 0 
         else 
