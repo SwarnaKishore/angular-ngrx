@@ -1,0 +1,22 @@
+name: Pull Request Check 
+on: 
+  pull_request: 
+    branches: 
+      - main 
+jobs: 
+  check-diff: 
+    name: Check diff between base and head branches 
+    runs-on: ubuntu-latest 
+    steps: 
+    - uses: actions/checkout@v2 
+    - name: Check diff 
+      run: | 
+        if git diff --quiet "${{ github.base_ref }}...${{ github.head_ref }}" && ! git diff --name-only "${{ github.base_ref }}...${{ github.head_ref }}" | grep "automationId"; then 
+          echo "No differences found between base and head branches, and no files with 'automationId' found." 
+          exit 0 
+        else 
+          echo "Differences found between base and head branches, or files with 'automationId' found." 
+          exit 1 
+        fi 
+
+ 
