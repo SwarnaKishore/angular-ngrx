@@ -27,15 +27,12 @@ jobs:
         #REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} --word-diff-regex='[^[:space:]]+')
         echo $REMOVED
         
-        #also need to see if just the text automationId is removed from a line which is not deleted
-        
-        # if 'automationId' is in removed words
-        if echo "$REMOVED"; then
-          echo "'automationId' text is removed."
-          exit 1
-        else
+        if [ "$REMOVED" == "" ]; then
           echo "'automationId' text is not removed."
           exit 0
+        else
+          echo "'automationId' text is removed."
+          exit 1
         fi
 
  
