@@ -20,16 +20,16 @@ jobs:
         echo $(git status)
         echo $(git checkout ${{ github.event.pull_request.head.ref }})
         
-        echo $(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} -U0)
+        echo $(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} -U0 --word-diff-regex='[^[:space:]]')
         echo 'actual commandS to get removed'
         
-        # AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} -U0 | grep -E '\[-automationId')
+        # AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} -U0 --word-diff-regex='[^[:space:]]' | grep -E '\[-automationId')
         echo $(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} -U0 | grep -E '\[-automationId')
-        # echo "$AUTOMATION_ID_REMOVED"
+        # echo $AUTOMATION_ID_REMOVED
         
-        # DATA_AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} -U0 | grep -E '\[-data-automation-id')
+        # DATA_AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} -U0 --word-diff-regex='[^[:space:]]' | grep -E '\[-data-automation-id')
         echo $(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} -U0 | grep -E '\[-data-automation-id')
-        #echo "$DATA_AUTOMATION_ID_REMOVED"
+        #echo $DATA_AUTOMATION_ID_REMOVED
         
         #if [ "$REMOVED" == "" ]; then
         #  echo "'automationId' text is not removed."
