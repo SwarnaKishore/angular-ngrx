@@ -15,8 +15,8 @@ jobs:
         # github.event.pull_request.head.ref is PR branch
         # github.event.pull_request.base.ref is master branch
         
-        # fetch PR branch
         echo $(git fetch origin ${{ github.event.pull_request.head.ref }})
+        echo $(git fetch origin ${{ github.event.pull_request.base.ref }})
         echo $(git status)
         echo $(git checkout ${{ github.event.pull_request.head.ref }})
         
