@@ -31,18 +31,10 @@ jobs:
         DATA_AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} -U0 --word-diff-regex='[^[:space:]]' | grep -E '\[-data-automation-id')
         echo $DATA_AUTOMATION_ID_REMOVED
         
-        #if [ "$REMOVED" == "" ]; then
-        #  echo "'automationId' text is not removed."
-        #  exit 0
-        #else
-        #  echo "'automationId' text is removed."
-        #  exit 1
-        #fi
-
-        if [[ "$AUTOMATION_ID_REMOVED" == *[-* ]]; then
+        if [ "$REMOVED" == "" ]; then
+          echo "'automationId' text is not removed."
+          exit 0
+        else
           echo "'automationId' text is removed."
           exit 1
-        else
-          echo "'automationId' text is not removed."
         fi
- 
