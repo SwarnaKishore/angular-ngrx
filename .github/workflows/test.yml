@@ -39,4 +39,10 @@ jobs:
         #  exit 1
         #fi
 
+        if [[ "$AUTOMATION_ID_REMOVED" == *[-* ]]; then
+          echo "'automationId' text is removed."
+          exit 1
+        else
+          echo "'automationId' text is not removed."
+        fi
  
