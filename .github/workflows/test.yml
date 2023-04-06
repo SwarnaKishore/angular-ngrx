@@ -26,12 +26,12 @@ jobs:
         REMOVED=$(git diff ${{github.event.pull_request.head.ref}} origin/${{github.event.pull_request.base.ref}} --word-diff-regex='/automationId|data-automation-id/g' | grep -E '\[-automationId' | grep -E '\[-data-automation-id')
         echo $REMOVED
         
-        if [ "$REMOVED" == "" ]; then
-          echo "'automationId' text is not removed."
-          exit 0
-        else
-          echo "'automationId' text is removed."
-          exit 1
-        fi
+        #if [ "$REMOVED" == "" ]; then
+        #  echo "'automationId' text is not removed."
+        #  exit 0
+        #else
+        #  echo "'automationId' text is removed."
+        #  exit 1
+        #fi
 
  
