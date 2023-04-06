@@ -11,12 +11,14 @@ jobs:
     - uses: actions/checkout@v3
     - name: Check diff
       run: |
-        # Get the differences between base and head branches
+        # Get the differences between base(master) and head(PR branch) branches
         git fetch origin ${{ github.event.pull_request.base.ref }}
         git fetch origin ${{ github.event.pull_request.head.ref }}
         echo "starting"
         #DIFF=$(git diff ${{ github.event.pull_request.base.ref }}..${{ github.event.pull_request.head.ref }})
         echo $(git status)
+        
+        echo $(git checkout ${{ github.event.pull_request.head.ref }})
         
         DIFF=$(git diff)
         echo DIFF
