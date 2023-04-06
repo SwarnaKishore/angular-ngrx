@@ -20,8 +20,10 @@ jobs:
         echo $(git status)
         echo $(git checkout ${{ github.event.pull_request.head.ref }})
         
-        DELETED=$(git diff ${{github.event.pull_request.head.ref}} origin/${{github.event.pull_request.base.ref}} --word-diff-regex='[^[:space:]]+' | grep -E '\[-automationId')
-        echo $DELETED
+        GET_REMOVED_CMD = git diff ${{github.event.pull_request.head.ref}} origin/${{github.event.pull_request.base.ref}} --word-diff-regex='[^[:space:]]+' | grep -E '\[-automationId'
+        echo $GET_REMOVED_CMD
+        REMOVED=$(GET_REMOVED_CMD)
+        echo $REMOVED
         
         #also need to see if just the text automationId is removed from a line which is not deleted
         
