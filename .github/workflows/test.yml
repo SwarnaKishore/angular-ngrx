@@ -5,15 +5,15 @@ on:
     branches: 
       - master 
 jobs: 
-  check-diff: 
-    name: Check diff between base and head branches 
-    runs-on: ubuntu-latest 
-    steps: 
-    - uses: actions/checkout@v3
-    - name: Check diff
+  display-removed-text:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Get removed text
       run: |
-        # Get the differences between base and head branches
-          git diff --name-only ${{ github.event.pull_request.base.ref }}...${{ github.event.pull_request.head.ref }} | xargs grep -L "automationId" || { echo "ERROR: 'automationId' text removed" && exit 1; }
-
-        
- 
+        REMOVED_TEXT=$(git diff --color=always ${{ github.event.pull_request.base.ref }}...${{ github.event.pull_request.head.ref }} | grep -E "^-[^-]" | cut -c2- | sed -E "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | sed "s/^/    /")
+        if [ -n "$REMOVED_TEXT" ]; then
+          echo "Removed text:"
+          echo "$REMOVED_TEXT"
+          exit 1
+        fi
