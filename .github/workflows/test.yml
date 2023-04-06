@@ -11,24 +11,27 @@ jobs:
     - uses: actions/checkout@v3
     - name: Check diff
       run: |
-        # Get the differences between base(master) and head(PR branch) branches
-        git fetch origin ${{ github.event.pull_request.base.ref }}
-        git fetch origin ${{ github.event.pull_request.head.ref }}
-        echo "starting"
-        echo $(git status)
+        # check if the PR has any automationIds deleted 
+        # github.event.pull_request.head.ref is PR branch
+        # github.event.pull_request.base.ref is master branch
         
+        # fetch PR branch
+        echo $(git fetch origin ${{ github.event.pull_request.head.ref }})
+        echo $(git status)
         echo $(git checkout ${{ github.event.pull_request.head.ref }})
         
-        DIFF=$(git diff ${{ github.event.pull_request.head.ref }} origin/${{ github.event.pull_request.base.ref }})
+        DELETED=$(git diff ${{ github.event.pull_request.head.ref }} origin/${{ github.event.pull_request.base.ref }} --changed-group-format='%<' --unchanged-group-format='')
         echo $DIFF
         
-        # Check if 'automationId' is removed
-        #if echo "$DIFF" | grep -q "automationId"; then
-        #  echo "No differences found between base and head branches, or 'automationId' text is removed."
-        #  exit 1
-        #else
-        #  echo "Differences found between base and head branches, and 'automationId' text is not removed."
-        # exit 0
-        #fi
+        #also need to see if just the text automationId is removed from a line which is not deleted
+        
+        # check if 'automationId' in deleted lines
+        if echo "$DELETED" | grep -q "automationId"; then
+          echo "'automationId' text is removed."
+          exit 1
+        else
+          echo "'automationId' text is not removed."
+         exit 0
+        fi
 
  
