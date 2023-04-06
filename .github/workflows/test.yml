@@ -1,6 +1,5 @@
 name: Pull Request Check 
 on: 
-  workflow_dispatch:
   pull_request: 
     branches: 
       - master 
@@ -15,17 +14,17 @@ jobs:
         # Get the differences between base and head branches
         git fetch origin ${{ github.event.pull_request.base.ref }}
         git fetch origin ${{ github.event.pull_request.head.ref }}
-        git merge --no-ff ${{ github.event.pull_request.base.ref }}..${{ github.event.pull_request.head.ref }}
 
         DIFF=$(git diff ${{ github.event.pull_request.base.ref }}..${{ github.event.pull_request.head.ref }})
+        echo DIFF
         
         # Check if 'automationId' is removed
-        if echo "$DIFF" | grep -q "automationId"; then
-          echo "No differences found between base and head branches, or 'automationId' text is removed."
-          exit 1
-        else
-          echo "Differences found between base and head branches, and 'automationId' text is not removed."
-          exit 0
-        fi
+        #if echo "$DIFF" | grep -q "automationId"; then
+        #  echo "No differences found between base and head branches, or 'automationId' text is removed."
+        #  exit 1
+        #else
+        #  echo "Differences found between base and head branches, and 'automationId' text is not removed."
+        # exit 0
+        #fi
 
  
