@@ -21,7 +21,7 @@ jobs:
         echo $(git checkout ${{ github.event.pull_request.head.ref }})
         
         DELETED=$(git diff ${{github.event.pull_request.head.ref}} origin/${{github.event.pull_request.base.ref }})
-        echo $DIFF
+        echo $DELETED
         
         #also need to see if just the text automationId is removed from a line which is not deleted
         
