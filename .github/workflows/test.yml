@@ -16,6 +16,8 @@ jobs:
         git fetch origin ${{ github.event.pull_request.head.ref }}
         echo "starting"
         #DIFF=$(git diff ${{ github.event.pull_request.base.ref }}..${{ github.event.pull_request.head.ref }})
+        echo $(git status)
+        
         DIFF=$(git diff)
         echo DIFF
         
