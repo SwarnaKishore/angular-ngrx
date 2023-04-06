@@ -14,7 +14,17 @@ jobs:
         # Get the differences between base and head branches
         git fetch origin ${{ github.event.pull_request.base.ref }}
         git fetch origin ${{ github.event.pull_request.head.ref }}
-
+        echo "starting"
+        echo "base.ref"
+        echo ${{ github.event.pull_request.base.ref }}
+        echo "head.ref"
+        echo ${{ github.event.pull_request.head.ref }}
+        
+        echo "base_ref"
+        echo ${{github.base_ref}}
+        echo "head_ref"
+        echo ${{github.head_ref}}
+        
         DIFF=$(git diff ${{ github.event.pull_request.base.ref }}..${{ github.event.pull_request.head.ref }})
         echo DIFF
         
