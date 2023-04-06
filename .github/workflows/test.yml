@@ -20,10 +20,10 @@ jobs:
         echo $(git status)
         echo $(git checkout ${{ github.event.pull_request.head.ref }})
         
-        echo $(git diff ${{github.event.pull_request.head.ref}} origin/${{github.event.pull_request.base.ref}} --unified=0 --word-diff-regex='[^[:space:]]')
+        echo $(git diff ${{github.event.pull_request.head.ref}} origin/${{github.event.pull_request.base.ref}} --unified=0 --word-diff-regex='/automationId|data-automation-id/g')
         echo 'actual command to get removed'
         
-        REMOVED=$(git diff ${{github.event.pull_request.head.ref}} origin/${{github.event.pull_request.base.ref}} --unified=0 --word-diff-regex='[^[:space:]]' | grep -E '\[-automationId')
+        REMOVED=$(git diff ${{github.event.pull_request.head.ref}} origin/${{github.event.pull_request.base.ref}} --unified=0 --word-diff-regex='/automationId|data-automation-id/g' | grep -E '\[-automationId')
         #REMOVED=$(git diff ${{github.event.pull_request.head.ref}} origin/${{github.event.pull_request.base.ref}} --word-diff-regex='[^[:space:]]+')
         echo $REMOVED
         
