@@ -29,20 +29,8 @@ jobs:
         AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} -U0 --word-diff-regex='[^[:space:]]+'  | grep -E '\[-automationId')
         echo $AUTOMATION_ID_REMOVED
         
-        # old
-        # DATA_AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} --word-diff-regex='/automationId|data-automation-id/g' | grep -E '\[-data-automation-id')
-        
-        echo $(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} -U0 --word-diff-regex='[^[:space:]]+' | grep -E '\[-data-automation-id')
-        DATA_AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} -U0 --word-diff-regex='[^[:space:]]+' | grep -E '\[-data-automation-id')
-        echo $DATA_AUTOMATION_ID_REMOVED
-        
         if echo "$AUTOMATION_ID_REMOVED | grep -E '\[-automationId'"; then
           echo "'automationId' text is removed."
-          exit 1
-        fi
-        
-        if echo "$DATA_AUTOMATION_ID_REMOVED | grep -E '\[-data-automation-id'"; then
-          echo "'data-automation-id' text is removed."
           exit 1
         fi
         
@@ -51,20 +39,4 @@ jobs:
           exit 0
         fi
         
-        if echo "$DATA_AUTOMATION_ID_REMOVED | ! grep -E '\[-data-automation-id'"; then
-          echo "'data-automation-id' text is not removed."
-          exit 0
-        fi
-        
-         # if [ -z "$AUTOMATION_ID_REMOVED" ]; then
-         # echo "'automationId' text is not removed."
-         # exit 0
-        # fi
-       # else
-       #   echo "'automationId' text is not removed."
-       #   exit 0
-       
-       
-        
-
-
+     
