@@ -41,14 +41,30 @@ jobs:
           exit 1
         fi
         
-        if [ -z "$AUTOMATION_ID_REMOVED" ]; then
+        if echo "$DATA_AUTOMATION_ID_REMOVED | grep -E '\[-data-automation-id'"; then
+          echo "'data-automation-id' text is removed."
+          exit 1
+        fi
+        
+        if echo "$AUTOMATION_ID_REMOVED | ! grep -E '\[-automationId'"; then
           echo "'automationId' text is not removed."
           exit 0
         fi
         
+        if echo "$DATA_AUTOMATION_ID_REMOVED | ! grep -E '\[-data-automation-id'"; then
+          echo "'data-automation-id' text is not removed."
+          exit 0
+        fi
+        
+         # if [ -z "$AUTOMATION_ID_REMOVED" ]; then
+         # echo "'automationId' text is not removed."
+         # exit 0
+        # fi
        # else
        #   echo "'automationId' text is not removed."
        #   exit 0
+       
+       
         
 
 
