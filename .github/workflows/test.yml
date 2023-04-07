@@ -33,7 +33,7 @@ jobs:
         # DATA_AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} --word-diff-regex='/automationId|data-automation-id/g' | grep -E '\[-data-automation-id')
         
         echo $(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} -U0 --word-diff-regex='[^[:space:]]+' | grep -E '\[-data-automation-id')
-        # DATA_AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} -U0 --word-diff-regex='[^[:space:]]+' | grep -E '\[-data-automation-id')
+        DATA_AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} -U0 --word-diff-regex='[^[:space:]]+' | grep -E '\[-data-automation-id')
         echo $DATA_AUTOMATION_ID_REMOVED
         
         if echo "$AUTOMATION_ID_REMOVED | grep -E '\[-automationId'"; then
