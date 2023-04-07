@@ -39,7 +39,16 @@ jobs:
         if echo "$AUTOMATION_ID_REMOVED | grep -E '\[-automationId'"; then
           echo "'automationId' text is removed."
           exit 1
-        else
+        fi
+        
+        if [ -z "$AUTOMATION_ID_REMOVED" ]; then
           echo "'automationId' text is not removed."
           exit 0
         fi
+        
+       # else
+       #   echo "'automationId' text is not removed."
+       #   exit 0
+        
+
+
