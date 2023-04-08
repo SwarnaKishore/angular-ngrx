@@ -25,10 +25,10 @@ jobs:
         
         if ["$AUTOMATION_ID_REMOVED" == ""]; then
           echo "'automationId' text is not removed."
-          exit 1
+          exit 0
         else
           echo "'automationId' text is removed."
-          exit 0
+          exit 1
         fi
       
 
