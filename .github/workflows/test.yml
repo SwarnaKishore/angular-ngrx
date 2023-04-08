@@ -20,7 +20,9 @@ jobs:
         echo $(git status)
         echo $(git checkout ${{ github.event.pull_request.head.ref }})
       
+        echo "step1"
         AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} --unified=0 --word-diff=plain -S"automationId"  | grep -E '\[-automationId')
+        echo "step2"
         echo $AUTOMATION_ID_REMOVED
         
         echo "testing"
@@ -31,5 +33,6 @@ jobs:
           echo "'automationId' text is removed."
           exit 1
         fi
-      
+        echo "step last"
+                
 
