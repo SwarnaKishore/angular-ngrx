@@ -23,6 +23,7 @@ jobs:
         AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} --unified=0 --word-diff=plain -S"automationId"  | grep -E '\[-automationId')
         echo $AUTOMATION_ID_REMOVED
         
+        echo "testing"
         if ["$AUTOMATION_ID_REMOVED" == ""]; then
           echo "'automationId' text is not removed."
           exit 0
