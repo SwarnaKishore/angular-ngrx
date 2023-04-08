@@ -23,17 +23,18 @@ jobs:
         echo "step0"
         echo $(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} --unified=0 --word-diff=plain -S'automationId')
         echo "step1"
-        AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} --unified=0 --word-diff=plain -S'automationId')
+        AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} --unified=0 --word-diff=plain -S'automationId' | {grep -e '\[-automationId' || true;})
         echo "step2"
         echo $AUTOMATION_ID_REMOVED
         
         echo "testing"
-        if echo "$AUTOMATION_ID_REMOVED | grep -E '\[-automationId'"; then
-          echo "'automationId' text is removed."
-          exit 1
-        else
+        if ["$AUTOMATION_ID_REMOVED" == ""]; then
           echo "'automationId' text is not removed."
           exit 0
+        else
+          echo "'automationId' text is removed."
+          exit 1
+        fi
         echo "step last"
                 
 
