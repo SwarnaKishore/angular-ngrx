@@ -28,12 +28,12 @@ jobs:
         echo $AUTOMATION_ID_REMOVED
         
         echo "testing"
-        if [-z "$AUTOMATION_ID_REMOVED"]; then
-          echo "'automationId' text is not removed."
-          exit 0
-        else
+        if [[ $AUTOMATION_ID_REMOVED ]]; then
           echo "'automationId' text is removed."
           exit 1
+        else
+          echo "'automationId' text is not removed."
+          exit 0
         fi
         echo "step last"
                 
