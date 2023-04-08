@@ -20,8 +20,10 @@ jobs:
         echo $(git status)
         echo $(git checkout ${{ github.event.pull_request.head.ref }})
       
+        echo "step0"
+        echo $(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} --unified=0 --word-diff=plain -S'automationId')
         echo "step1"
-        AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} --unified=0 --word-diff=plain -S"automationId"  | grep -E '\[-automationId')
+        AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} --unified=0 --word-diff=plain -S'automationId' | grep -E '\[-automationId')
         echo "step2"
         echo $AUTOMATION_ID_REMOVED
         
