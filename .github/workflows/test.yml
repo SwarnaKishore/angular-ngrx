@@ -25,7 +25,7 @@ jobs:
         echo "'data-automation-id' diff:"
         echo $(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} --unified=0 --word-diff=plain -S'data-automation-id')
         
-        AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} --unified=0 --word-diff=plain -S'automationId' | grep -e '\[-automationId' || [[ $? == 1 ]])
+        AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} --unified=0 --word-diff=plain -S'automationId' | grep -e '^\[-.*automationId.*\-]' || [[ $? == 1 ]])
         echo $AUTOMATION_ID_REMOVED
         
         if [[ $AUTOMATION_ID_REMOVED ]]; then
