@@ -2,10 +2,10 @@ name: Pull Request Check
 on: 
   pull_request: 
     branches: 
-      - master 
+      - master-copy 
 jobs: 
   check-diff: 
-    name: Check diff between base and head branches 
+    name: Check difference between base and head branches 
     runs-on: ubuntu-latest 
     steps: 
     - uses: actions/checkout@v3
