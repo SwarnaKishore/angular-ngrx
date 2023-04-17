@@ -3,5 +3,5 @@ pretest automationId to be removed from this line (dont delete the line)
 pretext automationId to be deleted (delete the line)
 New text
 data-automation-id
-<div data-automation-id="something"></div>
+<div></div>
 <div automationId="something"></div>
