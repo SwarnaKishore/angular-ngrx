@@ -1,42 +1,81 @@
-name: Pull Request Check 
-on: 
-  pull_request: 
-    branches: 
-      - master-copy 
-jobs: 
-  check-diff: 
-    name: Check difference between base and head branches 
-    runs-on: ubuntu-latest 
-    steps: 
-    - uses: actions/checkout@v3
-    - name: Check diff
-      run: |
-        # check if the PR has any automationIds deleted 
-        # github.event.pull_request.head.ref is PR branch
-        # github.event.pull_request.base.ref is master branch
-        
-        echo $(git fetch origin ${{ github.event.pull_request.head.ref }})
-        echo $(git fetch origin ${{ github.event.pull_request.base.ref }})
-        echo $(git status)
-        echo $(git checkout ${{ github.event.pull_request.head.ref }})
-      
-        echo "'automationId' diff:"
-        echo $(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} --unified=0 --word-diff=plain -S'automationId')
-        echo "'data-automation-id' diff:"
-        echo $(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} --unified=0 --word-diff=plain -S'data-automation-id')
-        
-        AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} --unified=0 --word-diff=plain -S'automationId' | grep -e '^\[-.*automationId.*\-]' || [[ $? == 1 ]])
-        echo $AUTOMATION_ID_REMOVED
-        
-        if [[ $AUTOMATION_ID_REMOVED ]]; then
-          echo "'automationId' text is removed."
-          exit 1
-        fi
-        
-        DATA_AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} --unified=0 --word-diff=plain -S'data-automation-id' | grep -e '^\[-.*data-automation-id.*\-]' || [[ $? == 1 ]])
-        echo $DATA_AUTOMATION_ID_REMOVED
-        
-        if [[ $DATA_AUTOMATION_ID_REMOVED ]]; then
-          echo "'data-automation-id' text is removed."
-          exit 1
-        fi
+ 
+
+name:  automation-removal-check 
+
+on:  
+
+  pull_request:  
+
+    branches:  
+
+      - ET-2778-automationId-pr-check  
+
+jobs:  
+
+  check-branch-differences:  
+
+    name: Warn on automation tag deletion  
+
+    runs-on: ubuntu-latest  
+
+    steps:  
+
+    - uses: actions/checkout@v3 
+
+    - name: Check differences between base and head branches 
+
+      run: | 
+
+        # check if the PR has any automationIds deleted  
+
+        # github.event.pull_request.head.ref is PR branch 
+
+        # github.event.pull_request.base.ref is main branch 
+
+         
+
+        echo $(git fetch origin ${{ github.event.pull_request.head.ref }}) 
+
+        echo $(git fetch origin ${{ github.event.pull_request.base.ref }}) 
+
+        echo $(git checkout ${{ github.event.pull_request.head.ref }}) 
+
+         
+
+        AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} --unified=0 --word-diff=plain | grep -e '\[-.*automationId.*\-]' || [[ $? == 1 ]]) 
+
+        echo $AUTOMATION_ID_REMOVED 
+
+         
+
+        if [[ $AUTOMATION_ID_REMOVED ]]; then 
+
+          echo "'automationId' text is removed." 
+
+          exit 1 
+
+        fi 
+
+         
+
+        DATA_AUTOMATION_ID_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} --unified=0 --word-diff=plain | grep -e '\[-.*data-automation-id.*\-]' || [[ $? == 1 ]]) 
+
+        echo $DATA_AUTOMATION_ID_REMOVED 
+
+         
+
+        if [[ $DATA_AUTOMATION_ID_REMOVED ]]; then 
+
+          echo "'data-automation-id' text is removed." 
+
+          exit 1 
+
+        fi 
+
+ 
+
+ 
+
+ 
+
+git diff origin/ET-2778-automationId-pr-check ET-2778-qa-automationid-pr-check --unified=0 --word-diff=plain 
