@@ -38,7 +38,7 @@ data-automation-id
 
             <em *ngSwitchCase="tabStatus.checked" [attr.data-automation-id]="tabItem?.automationId + '-tab-checked'"class="fas fa-check-circle checked"></em> 
 
-            <em *ngSwitchCase="tabStatus.unchecked" [attr.data-automation-id]="tabItem + '-tab-unchecked'" class="far fa-circle unchecked"></em> 
+            <em *ngSwitchCase="tabStatus.unchecked" [attr.data-automation-id]="tabItem?.automationId + '-tab-unchecked'" class="far fa-circle unchecked"></em> 
 
             <em *ngSwitchCase="tabStatus.info" [attr.data-automation-id]="tabItem?.automationId + '-tab-info'" class="fas fa-info-circle info"></em> 
 
