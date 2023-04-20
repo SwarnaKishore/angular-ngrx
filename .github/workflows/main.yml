@@ -8,7 +8,7 @@ on:
 
     branches:  
 
-      - ET-2778-automationId-pr-check  
+      - master-copy  
 
 jobs:  
 
