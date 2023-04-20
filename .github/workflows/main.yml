@@ -72,10 +72,3 @@ jobs:
 
         fi 
 
- 
-
- 
-
- 
-
-git diff origin/ET-2778-automationId-pr-check ET-2778-qa-automationid-pr-check --unified=0 --word-diff=plain 
