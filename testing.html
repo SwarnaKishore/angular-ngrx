@@ -1,0 +1,79 @@
+pretext automationId added
+pretest automationId to be removed from this line (dont delete the line)
+pretext automationId to be deleted (delete the line)
+New text
+data-automation-id
+<div data-automation-id="something"></div>
+<div automationId="something"></div>
+
+
+
+ 
+
+<div class="side-panel-container"> 
+
+  <div class="side-panel" [ngClass]="{'closed': open}" 
+
+       [ngStyle]="{'margin-top.px': (containerMarginTop !== 0) ? containerMarginTop : ''}"> 
+
+    <div class="toggler"> 
+
+      <span class="toggler-icon fas" [ngClass]="{'fa-chevron-left': open, 'fa-chevron-right': !open}" 
+
+            (click)="togglePanel()"></span> 
+
+    </div> 
+
+    <div class="tabs-container" [ngClass]="{'collapse-items': !open}"> 
+
+      <div class="tabs d-inline-flex" *ngFor="let tabItem of tabs" (click)="setTab(tabItem)" 
+
+           [ngClass]="{'active':activeTab===tabItem.tab, 'disabled' : tabItem.disabled }"> 
+
+        <!-- Use 'status' for different state of the tab and in future we can avoid 'completed' --> 
+
+        <div *ngIf="hasStatus(tabItem); else defaultIcons" class="mr-2 align-middle"> 
+
+          <div [ngSwitch]="tabItem.status"> 
+
+            <em *ngSwitchCase="tabStatus.checked" [attr.data-automation-id]="tabItem?.automationId + '-tab-checked'"class="fas fa-check-circle checked"></em> 
+
+            <em *ngSwitchCase="tabStatus.unchecked" [attr.data-automation-id]="tabItem?.automationId + '-tab-unchecked'" class="far fa-circle unchecked"></em> 
+
+            <em *ngSwitchCase="tabStatus.info" [attr.data-automation-id]="tabItem?.automationId + '-tab-info'" class="fas fa-info-circle info"></em> 
+
+            <em *ngSwitchCase="tabStatus.warning" [attr.data-automation-id]="tabItem?.automationId + '-tab-warning'" class="fas fa-exclamation-circle"></em> 
+
+            <div *ngSwitchCase="tabStatus.locked" [attr.data-automation-id]="tabItem?.automationId + '-tab-locked'" class="d-flex align-items-center justify-content-center locked"> 
+
+              <em class="fas fa-lock m-auto"></em> 
+
+            </div> 
+
+            <em *ngSwitchDefault class="far fa-circle unchecked" [attr.data-automation-id]="tabItem + '-tab-unchecked'"></em> 
+
+          </div> 
+
+        </div> 
+
+        <ng-template #defaultIcons> 
+
+          <em *ngIf="tabItem.completed" [attr.data-automation-id]="tabItem?.automationId + '-tab-checked'" class="fas fa-check-circle checked mr-2 align-middle"></em> 
+
+          <em *ngIf="!tabItem.completed" [attr.data-automation-id]="tabItem?.automationId + '-tab-unchecked'" class="far fa-circle unchecked mr-2 align-middle"></em> 
+
+        </ng-template> 
+
+        <span class="align-top mr-1" [attr.data-automation-id]="tabItem?.automationId + '-tab'">{{tabItem.tab}}</span> 
+
+        <span class="align-top" *ngIf="tabItem.optional"> (optional)</span> 
+
+        <span class="align-top" *ngIf="tabItem.remainingCount > 0" [attr.data-automation-id]="tabItem?.automationId + '-tab-count'"> ({{tabItem.remainingCount}})</span> 
+
+      </div> 
+
+    </div> 
+
+  </div> 
+
+</div> 
