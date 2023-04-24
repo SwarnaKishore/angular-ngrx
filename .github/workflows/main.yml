@@ -1,10 +1,9 @@
-name:  automation-removal-check 
-on:  
-  workflow_dispatch:
-  pull_request:  
-    branches:  
-      - master
+name:  Check to Warn on Automation Tag Deletion 
 
+on:  
+  pull_request:  
+    branches:
+      - master  
 env: 
   AUTOMATION_TAGS: "automationId,data-automation-id" 
 
