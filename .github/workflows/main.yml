@@ -1,69 +1,39 @@
  
 
 name:  automation-removal-check 
-
 on:  
-
   pull_request:  
-
     branches:  
-
       - master 
 
 env: 
-
   AUTOMATION_TAGS: "automationId,data-automation-id" 
 
 jobs:  
-
   check-diff:  
-
     name: Warn on automation tag deletion  
-
     runs-on: ubuntu-latest  
-
     steps:  
-
     - uses: actions/checkout@v3 
-
     - name: Check differences between base and head branches 
-
       run: | 
-
         # check if the PR has any automationIds deleted  
-
         # github.event.pull_request.head.ref is PR branch 
-
         # github.event.pull_request.base.ref is main branch 
-
-         
-
+ 
         echo $(git fetch origin ${{ github.event.pull_request.head.ref }}) 
-
         echo $(git fetch origin ${{ github.event.pull_request.base.ref }}) 
-
         echo $(git checkout ${{ github.event.pull_request.head.ref }}) 
-
          
-
         IFS=',' read -ra AUTOMATION_TAGS_ARRAY <<< "$AUTOMATION_TAGS" 
 
         for value in "${AUTOMATION_TAGS_ARRAY[@]}"; do 
-
           echo $value 
-
           AUTOMATION_TAG_REMOVED=$(git diff origin/${{github.event.pull_request.base.ref}} ${{github.event.pull_request.head.ref}} --unified=0 --word-diff=plain | grep -e '\[-.*${value}.*\-]' || [[ $? == 1 ]]) 
-
           echo $AUTOMATION_TAG_REMOVED 
 
-           
-
           if [[ $AUTOMATION_TAG_REMOVED ]]; then 
-
             echo "$value text is removed." 
-
             exit 1 
-
           fi 
-
         done 
