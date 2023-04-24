@@ -4,6 +4,5 @@ pretext automationId to be deleted (delete the line)
 New text
 data-automation-id
 <div data-automation-id="something"></div>
-<div automationId="something"></div>
 <div [attr.data-automation-id]="'test'">
 </div>
