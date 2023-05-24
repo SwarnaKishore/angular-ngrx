@@ -7,7 +7,7 @@ import { selectBooks, selectBookCollection } from './store/books/books.selectors
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  templateUrl: './app.component.html'     
 })
 export class AppComponent {
   title = 'angular-ngrx';
